@@ -1,22 +1,21 @@
 const express = require("express");
 const morgan = require("morgan");
 const userRoutes = require("./routes/userRoutes");
-const { PORT } = process.env;
 require("dotenv").config();
 
 class App {
   constructor() {
     this.app = express();
-    this.port = PORT;
+    this.port = process.env.PORT || 3001;
   }
 
   start() {
     this.setupExpress();
     this.setRoutes();
-    this.app.listen(PORT || 3030, () => {
+    this.app.listen(this.port, () => {
       console.log(`
               Server Running!
-                  http://localhost:${PORT}
+                  http://localhost:${this.port}
           `);
     });
   }

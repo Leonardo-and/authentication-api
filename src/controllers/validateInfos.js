@@ -1,33 +1,40 @@
 function validateInfos(email, password) {
-  let status = 200;
-  let error = false;
-  let data = {};
   if (!email || !password) {
-    status = 400;
-    error = true;
-    data = {
-      error: "Invalid e-mail or password",
+    return {
+      status: 400,
+      error: true,
+      data: {
+        error: "Please enter e-mail and password",
+      },
     };
   } else {
     const regexEmail = /\S+@\S+\.\S+/;
     if (!regexEmail.test(email)) {
-      status = 400;
-      error = true;
-      data = {
-        error: "Invalid e-mail",
+      return {
+        status: 400,
+        error: true,
+        data: {
+          error: "Invalid e-mail",
+        },
       };
     }
 
     if (password.length < 8) {
-      status = 400;
-      error = true;
-      data = {
-        error: "Insecure password: less than 8 characters",
+      return {
+        status: 400,
+        error: true,
+        data: {
+          error: "Password should be at least 8 characters long",
+        },
       };
     }
-  }
 
-  return { data, status, error };
+    return {
+      status: 200,
+      error: false,
+      data: {},
+    };
+  }
 }
 
 module.exports = validateInfos;
